@@ -8,7 +8,6 @@ public class Goal : MonoBehaviour
     public GameObject objectToMove;
     public TextMeshProUGUI scoreText; // Reference to the TextMeshProUGUI text element
     public AudioClip hitSound; // Reference to the audio clip to play on hit
-    public float volumeSensitivity = 10f; // Public variable to adjust volume sensitivity
 
     private int score = 0; // Variable to keep track of the score
     private AudioSource audioSource; // Reference to the AudioSource component
@@ -39,14 +38,10 @@ public class Goal : MonoBehaviour
                 rb.velocity = Vector2.zero;
                 rb.angularVelocity = 0f;
 
-                // Calculate volume based on the speed of the object
-                float speed = collision.relativeVelocity.magnitude;
-                float volume = Mathf.Clamp(speed / volumeSensitivity, 0.1f, 1f); // Use the public variable for sensitivity
-
-                // Play the hit sound with calculated volume
+                // Play the hit sound at a constant volume
                 if (hitSound != null && audioSource != null)
                 {
-                    audioSource.PlayOneShot(hitSound, volume);
+                    audioSource.PlayOneShot(hitSound, 1f); // Play sound at full volume
                 }
             }
 
